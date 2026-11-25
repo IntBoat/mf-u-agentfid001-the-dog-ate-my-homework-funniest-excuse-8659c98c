@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
-"""The Dog Ate My Homework: Funniest Excuse (make.fun).
+"""The Dog Ate My Homework: Funniest Excuse — a make.fun one-line entry.
 
-Writes the entry -- one excuse a dog gives after being caught eating the homework --
-to /output/entry.txt, where the sealed scorer reads it.
+The program writes the entry text to /output/entry.txt, where the
+competition's sealed scorer reads it.
 """
 
-import os
+from pathlib import Path
 
-TEXT = "I didn't eat your homework, I peer-reviewed it — but the conclusion was so weak I had to swallow my disappointment."
+ENTRY = "It was either the homework or the remote, and frankly the homework had better seasoning and zero consequences."
+
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
